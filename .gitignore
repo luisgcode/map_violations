@@ -1,0 +1,43 @@
+# Archivos Excel con datos confidenciales de la empresa
+*.xlsx
+*.xls
+
+# Carpeta con emails generados (contiene info de clientes)
+output/
+
+# Archivos temporales de análisis
+explore_*.py
+analyze_*.py
+step*_*.py
+
+# Screenshots y evidencias
+*.png
+*.jpg
+*.jpeg
+
+# Archivos de template con datos reales
+map-example.*
+map-base.*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Plan del proyecto (puede contener info sensible)
+projectplan.md

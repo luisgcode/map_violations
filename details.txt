@@ -1,0 +1,8 @@
+Yo recibo a diario un documento excel al cual llamamos MAP, minimum advertise price, cuando yo recibo ese archivo, debo manualmente abrirlo    
+ y ver que clientes estan vendiendo por debajo del precio minimo permitido, lo que quiero que me ayudes a construir es un proyecto simple,       
+sin mucho css ni nada, que me permita subirle el excel y que el sistema lea el archivo y rapida mente identifique quienes estan violando el      
+precio minimo y asi mismo prepare segun otro archivo tal vez un json, prepare los templates de los mails que voy a mandar, tiene que ser de      
+esta forma porque no voy a pder conectar ninguna herramienta con outlook de la empresa para mandar los mails automaticos ni nada, eso no me      
+lo van a permitir entonces, pienso que al menos generar todo lo demas automaticamente y solo copiar y pegar los mails al menos. para esto        
+quiero que primero me hagas todas las preguntas necesarias y que establezcamos el proyecto juntos, para esto quiero usar python, yo de python    
+ se muy poco asi que la idea es que el 90% lo hagas tu pero quiero por lo menos entender. 

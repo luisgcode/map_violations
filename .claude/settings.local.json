@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rm:*)",
+      "Bash(ls:*)",
+      "Bash(mv:*)",
+      "Bash(pip install pandas openpyxl)",
+      "Bash(python -m pip install pandas openpyxl)",
+      "Bash(python explore_excel.py)",
+      "Bash(python analyze_data.py)"
+    ],
+    "deny": []
+  }
+}
