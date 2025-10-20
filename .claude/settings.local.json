@@ -7,7 +7,14 @@
       "Bash(pip install pandas openpyxl)",
       "Bash(python -m pip install pandas openpyxl)",
       "Bash(python explore_excel.py)",
-      "Bash(python analyze_data.py)"
+      "Bash(python analyze_data.py)",
+      "Bash(pip install streamlit)",
+      "Bash(python -m pip install streamlit)",
+      "Bash(python -m pip install pyarrow --only-binary :all:)",
+      "Bash(python -m pip install streamlit --no-deps)",
+      "Bash(python -m pip install altair blinker cachetools click gitpython packaging pillow protobuf pydeck requests tenacity toml tornado typing-extensions watchdog rich)",
+      "Bash(python -m pip install flask)",
+      "Bash(python app_flask.py)"
     ],
     "deny": []
   }
