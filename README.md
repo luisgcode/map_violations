@@ -62,6 +62,7 @@ map-dimplex/
 To use this project:
 
 1. Add your Excel file with the following minimum columns:
+
    - `sellers`: Seller name
    - `prices`: Current price
    - `U.S. MAP`: Minimum allowed price

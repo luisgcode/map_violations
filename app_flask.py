@@ -34,41 +34,45 @@ def group_by_seller(violations_df):
     return grouped
 
 def generate_email_single_product(product_row):
-    """Generate email for single product violation"""
+    """Generate email for single product violation with HTML formatting"""
     sku = product_row['SAP Material']
     description = product_row['Description']
     map_price = product_row['U.S. MAP']
     current_price = product_row['prices']
     product_link = product_row.get('seller_links', 'N/A')
 
-    subject = "Subject: IMMEDIATE ACTION REQUIRED - Glen Dimplex MAP Violation (1 Product)"
+    subject = "IMMEDIATE ACTION REQUIRED - Glen Dimplex MAP Violation (1 Product)"
 
-    # Build product line with link
-    product_line = f"SKU {sku} ({description}): MAP ${map_price:.2f}, Your Price: ${current_price:.2f}"
-    if product_link and product_link != 'N/A' and str(product_link).strip():
-        product_line += f"\nProduct Link: {product_link}"
+    # Build product line with clickable link
+    product_info = f"<p><strong>SKU {sku}</strong> ({description})<br><strong>MAP:</strong> ${map_price:.2f} | <strong style='color: #e53e3e;'>Your Price:</strong> ${current_price:.2f}</p>"
 
-    body = f"""Hello,
-Your company is in violation of Glen Dimplex Americas Minimum Advertised Price (MAP) Policy.
+    if product_link and product_link != 'N/A' and str(product_link).strip() and product_link != 'nan':
+        product_info += f"<p><strong>Product Link:</strong> <a href='{product_link}'>{product_link}</a></p>"
 
-{product_line}
+    body = f"""<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+<p>Hello,</p>
 
-Per our MAP policy, you are required to update the pricing in line with our MAP policy within 24 hours. If this violation is not corrected, GDA reserves the right to refuse purchase orders, stop future shipments, and/or suspend accounts is at our discretion which may or may not be permanent.
+<p>Your company is in violation of <strong>Glen Dimplex Americas Minimum Advertised Price (MAP) Policy</strong>.</p>
 
-Please note that we have had a price change effective from October 1st, 2025, and the updated price lists have been provided to your distributors.
+{product_info}
 
-If you have any questions about this MAP violation, please respond directly to this email. If you are not the correct person to receive this notice, please reply with the name, title, and contact information of the correct individual.
+<p>Per our MAP policy, you are required to update the pricing in line with our MAP policy <strong style='color: #c53030;'>within 24 hours</strong>. If this violation is not corrected, GDA reserves the right to refuse purchase orders, stop future shipments, and/or suspend accounts is at our discretion which may or may not be permanent.</p>
 
-Sincerely,
-Glen Dimplex Americas MAP Enforcement Team"""
+<p>Please note that we have had a price change effective from <strong>October 1st, 2025</strong>, and the updated price lists have been provided to your distributors.</p>
 
-    return f"{subject}\n\n{body}"
+<p>If you have any questions about this MAP violation, please respond directly to this email. If you are not the correct person to receive this notice, please reply with the name, title, and contact information of the correct individual.</p>
+
+<p>Sincerely,<br>
+<strong>Glen Dimplex Americas MAP Enforcement Team</strong></p>
+</div>"""
+
+    return {"subject": subject, "body": body}
 
 def generate_email_multiple_products(products_df):
-    """Generate email for multiple product violations"""
+    """Generate email for multiple product violations with HTML formatting"""
     num_products = len(products_df)
 
-    subject = f"Subject: IMMEDIATE ACTION REQUIRED - Glen Dimplex MAP Violations ({num_products} Products)"
+    subject = f"IMMEDIATE ACTION REQUIRED - Glen Dimplex MAP Violations ({num_products} Products)"
 
     product_list = []
     for idx, row in products_df.iterrows():
@@ -78,30 +82,36 @@ def generate_email_multiple_products(products_df):
         current_price = row['prices']
         product_link = row.get('seller_links', 'N/A')
 
-        # Build product line with link
-        product_line = f"- SKU {sku} ({description}): MAP ${map_price:.2f}, Your Price: ${current_price:.2f}"
-        if product_link and product_link != 'N/A' and str(product_link).strip():
-            product_line += f"\n  Link: {product_link}"
+        # Build product line with clickable link
+        product_line = f"<li><strong>SKU {sku}</strong> ({description})<br><strong>MAP:</strong> ${map_price:.2f} | <strong style='color: #e53e3e;'>Your Price:</strong> ${current_price:.2f}"
+        if product_link and product_link != 'N/A' and str(product_link).strip() and product_link != 'nan':
+            product_line += f"<br><strong>Link:</strong> <a href='{product_link}'>{product_link}</a>"
+        product_line += "</li>"
 
         product_list.append(product_line)
 
-    products_text = "\n".join(product_list)
+    products_html = "\n".join(product_list)
 
-    body = f"""Hello,
-Your company is in violation of Glen Dimplex Americas Minimum Advertised Price (MAP) Policy. The following Dimplex SKUs are currently being sold below MAP:
+    body = f"""<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+<p>Hello,</p>
 
-{products_text}
+<p>Your company is in violation of <strong>Glen Dimplex Americas Minimum Advertised Price (MAP) Policy</strong>. The following Dimplex SKUs are currently being sold below MAP:</p>
 
-Per our MAP policy, you are required to update the pricing in line with our MAP policy within 24 hours. If this violation is not corrected, GDA reserves the right to refuse purchase orders, stop future shipments, and/or suspend accounts is at our discretion which may or may not be permanent.
+<ul style="margin: 20px 0; padding-left: 20px;">
+{products_html}
+</ul>
 
-Please note that we have had a price change effective from October 1st, 2025, and the updated price lists have been provided to your distributors.
+<p>Per our MAP policy, you are required to update the pricing in line with our MAP policy <strong style='color: #c53030;'>within 24 hours</strong>. If this violation is not corrected, GDA reserves the right to refuse purchase orders, stop future shipments, and/or suspend accounts is at our discretion which may or may not be permanent.</p>
 
-If you have any questions about this MAP violation, please respond directly to this email. If you are not the correct person to receive this notice, please reply with the name, title, and contact information of the correct individual.
+<p>Please note that we have had a price change effective from <strong>October 1st, 2025</strong>, and the updated price lists have been provided to your distributors.</p>
 
-Sincerely,
-Glen Dimplex Americas MAP Enforcement Team"""
+<p>If you have any questions about this MAP violation, please respond directly to this email. If you are not the correct person to receive this notice, please reply with the name, title, and contact information of the correct individual.</p>
 
-    return f"{subject}\n\n{body}"
+<p>Sincerely,<br>
+<strong>Glen Dimplex Americas MAP Enforcement Team</strong></p>
+</div>"""
+
+    return {"subject": subject, "body": body}
 
 def clean_filename(seller_name):
     """Clean seller name for filename"""
@@ -116,12 +126,14 @@ def generate_emails(grouped_violations):
         num_violations = len(violations_df)
 
         if num_violations == 1:
-            email_content = generate_email_single_product(violations_df.iloc[0])
+            email_data = generate_email_single_product(violations_df.iloc[0])
         else:
-            email_content = generate_email_multiple_products(violations_df)
+            email_data = generate_email_multiple_products(violations_df)
 
-        filename = f"email_{clean_filename(seller_name)}.txt"
-        emails[filename] = email_content
+        filename = f"email_{clean_filename(seller_name)}.html"
+        # Combine subject and body for file storage
+        email_content = f"Subject: {email_data['subject']}\n\n{email_data['body']}"
+        emails[filename] = {"content": email_content, "subject": email_data['subject'], "body": email_data['body']}
 
     return emails
 
@@ -167,10 +179,10 @@ def upload_file():
         emails = generate_emails(grouped_violations)
 
         # Save emails to files
-        for filename, content in emails.items():
+        for filename, email_data in emails.items():
             output_path = os.path.join(app.config['OUTPUT_FOLDER'], filename)
             with open(output_path, 'w', encoding='utf-8') as f:
-                f.write(content)
+                f.write(email_data['content'])
 
         # Prepare response data
         sellers_data = []
@@ -192,6 +204,30 @@ def upload_file():
 
     except Exception as e:
         return jsonify({'error': f'Error processing file: {str(e)}'}), 500
+
+@app.route('/get-email-content/<filename>')
+def get_email_content(filename):
+    """Get email content as JSON for clipboard copy with HTML format"""
+    try:
+        file_path = os.path.join(app.config['OUTPUT_FOLDER'], filename)
+        with open(file_path, 'r', encoding='utf-8') as f:
+            full_content = f.read()
+
+        # Split subject and body
+        if 'Subject:' in full_content:
+            parts = full_content.split('\n\n', 1)
+            subject = parts[0].replace('Subject: ', '')
+            body = parts[1] if len(parts) > 1 else ''
+        else:
+            subject = ''
+            body = full_content
+
+        return jsonify({
+            'subject': subject,
+            'body': body
+        })
+    except Exception as e:
+        return jsonify({'error': f'File not found: {str(e)}'}), 404
 
 @app.route('/download/<filename>')
 def download_file(filename):
