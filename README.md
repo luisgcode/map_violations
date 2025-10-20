@@ -1,77 +1,77 @@
 # MAP Violation Email Generator
 
-Sistema automatizado para detectar violaciones de MAP (Minimum Advertised Price) y generar emails personalizados listos para enviar.
+Automated system to detect MAP (Minimum Advertised Price) violations and generate personalized emails ready to send.
 
-## Descripción
+## Description
 
-Este proyecto lee archivos Excel con datos de precios, identifica vendedores que están violando las políticas de precio mínimo anunciado, y genera emails individuales listos para copiar y pegar en Outlook.
+This project reads Excel files with price data, identifies sellers who are violating minimum advertised price policies, and generates individual emails ready to copy and paste into Outlook.
 
-## Características
+## Features
 
-- ✅ Lectura automática de archivos Excel con datos de precios
-- ✅ Detección de violaciones basada en diferencia de precios
-- ✅ Agrupación de múltiples violaciones por vendedor
-- ✅ Generación de emails personalizados (singular/plural)
-- ✅ Formato listo para copiar/pegar en Outlook
-- ✅ Archivos de salida individuales por vendedor
+- ✅ Automatic reading of Excel files with price data
+- ✅ Violation detection based on price difference
+- ✅ Grouping of multiple violations by seller
+- ✅ Generation of personalized emails (singular/plural)
+- ✅ Format ready to copy/paste into Outlook
+- ✅ Individual output files per seller
 
-## Requisitos
+## Requirements
 
 - Python 3.x
 - pandas
 - openpyxl
 
-## Instalación
+## Installation
 
 ```bash
 pip install pandas openpyxl
 ```
 
-## Uso
+## Usage
 
-1. Coloca tu archivo Excel en la carpeta del proyecto
-2. Asegúrate de tener el template de email (`MAP-mail-template`)
-3. Ejecuta el script principal:
+1. Place your Excel file in the project folder
+2. Make sure you have the email template (`MAP-mail-template`)
+3. Run the main script:
 
 ```bash
 python generate_emails.py
 ```
 
-4. Los emails generados estarán en la carpeta `output/`
-5. Copia y pega cada email en Outlook
+4. Generated emails will be in the `output/` folder
+5. Copy and paste each email into Outlook
 
-## Estructura del Proyecto
+## Project Structure
 
 ```
 map-dimplex/
-├── generate_emails.py          # Script principal
-├── MAP-mail-template           # Template del email
-├── output/                     # Emails generados (ignorado por git)
-├── .gitignore                  # Archivos a ignorar
-└── README.md                   # Este archivo
+├── generate_emails.py          # Main script
+├── MAP-mail-template           # Email template
+├── output/                     # Generated emails (ignored by git)
+├── .gitignore                  # Files to ignore
+└── README.md                   # This file
 ```
 
-## Notas
+## Notes
 
-- Los archivos Excel y la carpeta output/ están excluidos del repositorio por contener información confidencial
-- El sistema NO se conecta a Outlook automáticamente (por restricciones corporativas)
-- El usuario debe copiar y pegar manualmente cada email
+- Excel files and the output/ folder are excluded from the repository as they contain confidential information
+- The system does NOT connect to Outlook automatically (due to corporate restrictions)
+- User must manually copy and paste each email
 
-## Configuración
+## Configuration
 
-Para usar este proyecto:
+To use this project:
 
-1. Añade tu archivo Excel con las siguientes columnas mínimas:
-   - `sellers`: Nombre del vendedor
-   - `prices`: Precio actual
-   - `U.S. MAP`: Precio mínimo permitido
-   - `price_difference`: Diferencia (negativo = violación)
-   - `Description`: Descripción del producto
-   - `SAP Material`: Código SKU
-   - `seller_links`: Links a los productos
+1. Add your Excel file with the following minimum columns:
+   - `sellers`: Seller name
+   - `prices`: Current price
+   - `U.S. MAP`: Minimum allowed price
+   - `price_difference`: Difference (negative = violation)
+   - `Description`: Product description
+   - `SAP Material`: SKU code
+   - `seller_links`: Links to products
 
-2. Personaliza el template `MAP-mail-template` según tus necesidades
+2. Customize the `MAP-mail-template` template according to your needs
 
-## Licencia
+## License
 
-Uso interno de la empresa.
+Internal company use.

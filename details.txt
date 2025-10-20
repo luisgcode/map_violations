@@ -1,8 +1,8 @@
-Yo recibo a diario un documento excel al cual llamamos MAP, minimum advertise price, cuando yo recibo ese archivo, debo manualmente abrirlo    
- y ver que clientes estan vendiendo por debajo del precio minimo permitido, lo que quiero que me ayudes a construir es un proyecto simple,       
-sin mucho css ni nada, que me permita subirle el excel y que el sistema lea el archivo y rapida mente identifique quienes estan violando el      
-precio minimo y asi mismo prepare segun otro archivo tal vez un json, prepare los templates de los mails que voy a mandar, tiene que ser de      
-esta forma porque no voy a pder conectar ninguna herramienta con outlook de la empresa para mandar los mails automaticos ni nada, eso no me      
-lo van a permitir entonces, pienso que al menos generar todo lo demas automaticamente y solo copiar y pegar los mails al menos. para esto        
-quiero que primero me hagas todas las preguntas necesarias y que establezcamos el proyecto juntos, para esto quiero usar python, yo de python    
- se muy poco asi que la idea es que el 90% lo hagas tu pero quiero por lo menos entender. 
+I receive daily an Excel document which we call MAP, minimum advertised price. When I receive that file, I must manually open it
+and see which clients are selling below the minimum allowed price. What I want you to help me build is a simple project,
+without much CSS or anything, that allows me to upload the Excel and have the system read the file and quickly identify who is violating the
+minimum price and likewise prepare according to another file, maybe a JSON, prepare the templates of the emails that I'm going to send. It has to be
+this way because I won't be able to connect any tool with the company's Outlook to send automatic emails or anything, they won't
+allow me to do that, so I think at least generate everything else automatically and just copy and paste the emails at least. For this
+I want you to first ask me all the necessary questions and let's establish the project together. For this I want to use Python. I know very little Python
+so the idea is that you do 90% but I want to at least understand. 
