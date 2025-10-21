@@ -14,7 +14,20 @@
       "Bash(python -m pip install streamlit --no-deps)",
       "Bash(python -m pip install altair blinker cachetools click gitpython packaging pillow protobuf pydeck requests tenacity toml tornado typing-extensions watchdog rich)",
       "Bash(python -m pip install flask)",
-      "Bash(python app_flask.py)"
+      "Bash(python app_flask.py)",
+      "Bash(git log --format=\"%s%n%b%n---\" -2)",
+      "Bash(git add requirements.txt)",
+      "Bash(git commit -m \"fix: update pandas version for better compatibility\")",
+      "Bash(git push origin main --force)",
+      "Bash(git add templates/index.html)",
+      "Bash(git commit -m \"ui: remove download all emails button\")",
+      "Bash(git push origin main)",
+      "WebFetch(domain:www.dimplex.glendimplexamericas.com)",
+      "Bash(git add requirements.txt runtime.txt templates/index.html)",
+      "Bash(git commit -m \"fix: downgrade to Python 3.11 and pandas 2.0.3 for compatibility\")",
+      "Bash(git commit -m \"ui: redesign with professional corporate style and add copy indicator\")",
+      "Bash(git add -A)",
+      "Bash(git commit -m \"chore: switch from Render to Railway deployment\")"
     ],
     "deny": []
   }

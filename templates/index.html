@@ -151,27 +151,27 @@
 
       .metrics {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 20px;
-        margin-bottom: 30px;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 12px;
+        margin-bottom: 25px;
       }
 
       .metric-card {
         background: #2c3e50;
         color: white;
-        padding: 20px;
+        padding: 14px;
         border-radius: 4px;
         text-align: center;
       }
 
       .metric-value {
-        font-size: 36px;
+        font-size: 26px;
         font-weight: bold;
-        margin-bottom: 8px;
+        margin-bottom: 4px;
       }
 
       .metric-label {
-        font-size: 14px;
+        font-size: 12px;
         opacity: 0.9;
       }
 
@@ -310,17 +310,16 @@
       }
 
       .footer {
-        text-align: center;
-        margin-top: 30px;
-        padding-top: 20px;
-        border-top: 1px solid #e2e8f0;
-        color: #718096;
-        font-size: 14px;
+        text-align: right;
+        margin-bottom: 20px;
+        color: #999;
+        font-size: 11px;
       }
     </style>
   </head>
   <body>
     <div class="container">
+      <div class="footer">Created by Marketing Team - Luis Guaiquirian</div>
       <div class="header">
         <h1>📧 MAP Violation Email Generator</h1>
         <p class="subtitle">
@@ -358,14 +357,6 @@
           <h2 class="section-title">Individual Files</h2>
           <div class="sellers-grid" id="sellersGrid"></div>
         </div>
-
-        <button class="btn reset-btn" onclick="resetPage()">
-          ⬅️ Upload Another File
-        </button>
-      </div>
-
-      <div class="footer">
-        Created by Marketing Team - Luis Guaiquirian
       </div>
     </div>
 
@@ -529,8 +520,8 @@
           await navigator.clipboard.write([clipboardItem]);
 
           // Mark the entire card as copied
-          const card = button.closest('.seller-card');
-          card.classList.add('copied');
+          const card = button.closest(".seller-card");
+          card.classList.add("copied");
 
           // Visual feedback on button
           const originalText = button.innerHTML;
