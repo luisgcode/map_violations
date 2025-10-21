@@ -195,7 +195,7 @@
       .table-header {
         background: #f5f5f5;
         display: grid;
-        grid-template-columns: 2fr 1fr 2fr;
+        grid-template-columns: 3fr 1fr;
         padding: 12px 20px;
         border-bottom: 1px solid #e8e8e8;
         font-size: 11px;
@@ -207,7 +207,7 @@
 
       .table-row {
         display: grid;
-        grid-template-columns: 2fr 1fr 2fr;
+        grid-template-columns: 3fr 1fr;
         padding: 16px 20px;
         border-bottom: 1px solid #e8e8e8;
         align-items: center;
@@ -226,6 +226,12 @@
         background: #f0f9f4;
       }
 
+      .seller-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
       .seller-name {
         font-size: 14px;
         color: #212121;
@@ -233,6 +239,7 @@
         display: flex;
         align-items: center;
         gap: 8px;
+        min-width: 200px;
       }
 
       .check-indicator {
@@ -253,7 +260,6 @@
       .btn-group {
         display: flex;
         gap: 8px;
-        justify-content: flex-end;
       }
 
       .copy-btn {
@@ -365,8 +371,8 @@
 
         <!-- Download Section -->
         <div class="download-section" id="downloadSection">
-          <h2 class="section-title">Individual Files</h2>
-          <div class="sellers-grid" id="sellersGrid"></div>
+          <h2 class="section-title">Violation Emails</h2>
+          <div class="sellers-table" id="sellersTable"></div>
         </div>
       </div>
     </div>
@@ -475,34 +481,45 @@
           showAlert("🎉 " + data.message, "success");
           document.getElementById("downloadSection").style.display = "none";
         } else {
-          // Display sellers
-          const sellersHTML = data.sellers
+          // Display sellers as table
+          const tableHeader = `
+            <div class="table-header">
+              <div>Seller</div>
+              <div>Violations</div>
+            </div>
+          `;
+
+          const tableRows = data.sellers
             .map(
               (seller) => `
-                    <div class="seller-card" data-filename="${seller.filename}">
-                        <span class="check-indicator">✓</span>
-                        <div class="seller-name">${seller.name}</div>
+                    <div class="table-row" data-filename="${seller.filename}">
+                        <div class="seller-info">
+                            <div class="seller-name">
+                                <span class="check-indicator">✓</span>
+                                ${seller.name}
+                            </div>
+                            <div class="btn-group">
+                                <button class="copy-btn" onclick="copyEmail('${
+                                  seller.filename
+                                }', this)">
+                                    Copy Email
+                                </button>
+                                <button class="download-btn-small" onclick="downloadFile('${
+                                  seller.filename
+                                }')">
+                                    Download
+                                </button>
+                            </div>
+                        </div>
                         <div class="seller-violations">${
                           seller.violations
                         } violation${seller.violations > 1 ? "s" : ""}</div>
-                        <div class="btn-group">
-                            <button class="copy-btn" onclick="copyEmail('${
-                              seller.filename
-                            }', this)">
-                                Copy Email
-                            </button>
-                            <button class="download-btn-small" onclick="downloadFile('${
-                              seller.filename
-                            }')">
-                                Download
-                            </button>
-                        </div>
                     </div>
                 `
             )
             .join("");
 
-          document.getElementById("sellersGrid").innerHTML = sellersHTML;
+          document.getElementById("sellersTable").innerHTML = tableHeader + tableRows;
         }
       }
 
@@ -530,9 +547,9 @@
 
           await navigator.clipboard.write([clipboardItem]);
 
-          // Mark the entire card as copied
-          const card = button.closest(".seller-card");
-          card.classList.add("copied");
+          // Mark the entire row as copied
+          const row = button.closest(".table-row");
+          row.classList.add("copied");
 
           // Visual feedback on button
           const originalText = button.innerHTML;
