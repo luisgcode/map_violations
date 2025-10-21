@@ -27,7 +27,8 @@
       "Bash(git commit -m \"fix: downgrade to Python 3.11 and pandas 2.0.3 for compatibility\")",
       "Bash(git commit -m \"ui: redesign with professional corporate style and add copy indicator\")",
       "Bash(git add -A)",
-      "Bash(git commit -m \"chore: switch from Render to Railway deployment\")"
+      "Bash(git commit -m \"chore: switch from Render to Railway deployment\")",
+      "Bash(git commit -m \"fix: update UI to corporate style and fix Railway deps\")"
     ],
     "deny": []
   }

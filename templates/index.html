@@ -12,78 +12,75 @@
       }
 
       body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-          "Helvetica", "Arial", sans-serif;
-        background: #f5f5f5;
+        font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+        background: #fafafa;
         min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
+        margin: 0;
+        padding: 0;
       }
 
       .container {
-        background: white;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        max-width: 900px;
-        width: 100%;
-        padding: 40px;
-        border: 1px solid #e0e0e0;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 30px;
       }
 
       .header {
-        text-align: center;
-        margin-bottom: 40px;
+        background: white;
+        border-bottom: 1px solid #e8e8e8;
+        padding: 24px 30px;
+        margin: -30px -30px 30px -30px;
       }
 
       .header h1 {
-        font-size: 28px;
-        color: #1a1a1a;
-        margin-bottom: 8px;
+        font-size: 20px;
+        color: #212121;
+        margin: 0 0 4px 0;
         font-weight: 600;
       }
 
       .header .subtitle {
         color: #666;
-        font-size: 14px;
+        font-size: 13px;
+        margin: 0;
       }
 
       .upload-area {
-        border: 2px dashed #ccc;
-        border-radius: 4px;
-        padding: 50px 20px;
+        background: white;
+        border: 1px solid #e8e8e8;
+        border-radius: 2px;
+        padding: 40px;
         text-align: center;
-        background: #fafafa;
         cursor: pointer;
-        transition: all 0.2s ease;
-        margin-bottom: 30px;
+        transition: all 0.15s ease;
       }
 
       .upload-area:hover {
-        border-color: #999;
-        background: #f5f5f5;
+        border-color: #0078d4;
+        background: #fafafa;
       }
 
       .upload-area.dragging {
-        border-color: #666;
-        background: #f0f0f0;
+        border-color: #0078d4;
+        background: #f3f9fd;
       }
 
       .upload-icon {
-        font-size: 48px;
-        margin-bottom: 20px;
+        font-size: 32px;
+        margin-bottom: 12px;
+        color: #666;
       }
 
       .upload-text {
-        font-size: 18px;
-        color: #4a5568;
-        margin-bottom: 10px;
+        font-size: 14px;
+        color: #212121;
+        margin-bottom: 6px;
+        font-weight: 500;
       }
 
       .upload-hint {
-        font-size: 14px;
-        color: #a0aec0;
+        font-size: 12px;
+        color: #888;
       }
 
       #fileInput {
@@ -150,29 +147,31 @@
       }
 
       .metrics {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-        gap: 12px;
-        margin-bottom: 25px;
+        display: flex;
+        gap: 16px;
+        margin-bottom: 24px;
       }
 
       .metric-card {
-        background: #2c3e50;
-        color: white;
-        padding: 14px;
-        border-radius: 4px;
-        text-align: center;
+        background: white;
+        border: 1px solid #e8e8e8;
+        padding: 16px 20px;
+        border-radius: 2px;
+        flex: 1;
       }
 
       .metric-value {
-        font-size: 26px;
-        font-weight: bold;
+        font-size: 24px;
+        font-weight: 600;
+        color: #212121;
         margin-bottom: 4px;
       }
 
       .metric-label {
-        font-size: 12px;
-        opacity: 0.9;
+        font-size: 11px;
+        color: #666;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
       }
 
       .download-section {
@@ -180,105 +179,117 @@
       }
 
       .section-title {
-        font-size: 20px;
-        color: #2d3748;
-        margin-bottom: 20px;
-        padding-bottom: 10px;
-        border-bottom: 2px solid #e2e8f0;
+        font-size: 14px;
+        color: #212121;
+        margin-bottom: 16px;
+        font-weight: 600;
       }
 
-      .sellers-grid {
+      .sellers-table {
+        background: white;
+        border: 1px solid #e8e8e8;
+        border-radius: 2px;
+        overflow: hidden;
+      }
+
+      .table-header {
+        background: #f5f5f5;
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 15px;
+        grid-template-columns: 2fr 1fr 2fr;
+        padding: 12px 20px;
+        border-bottom: 1px solid #e8e8e8;
+        font-size: 11px;
+        color: #666;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: 600;
       }
 
-      .seller-card {
+      .table-row {
+        display: grid;
+        grid-template-columns: 2fr 1fr 2fr;
+        padding: 16px 20px;
+        border-bottom: 1px solid #e8e8e8;
+        align-items: center;
+        transition: background 0.15s ease;
+      }
+
+      .table-row:last-child {
+        border-bottom: none;
+      }
+
+      .table-row:hover {
         background: #fafafa;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        padding: 16px;
-        transition: all 0.2s ease;
-        position: relative;
       }
 
-      .seller-card:hover {
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      }
-
-      .seller-card.copied {
-        border-color: #27ae60;
+      .table-row.copied {
         background: #f0f9f4;
       }
 
-      .seller-card .check-indicator {
-        display: none;
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        color: #27ae60;
-        font-size: 24px;
-        font-weight: bold;
-      }
-
-      .seller-card.copied .check-indicator {
-        display: block;
-      }
-
       .seller-name {
-        font-weight: 600;
-        color: #1a1a1a;
-        margin-bottom: 8px;
+        font-size: 14px;
+        color: #212121;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .check-indicator {
+        color: #107c10;
+        font-size: 16px;
+        display: none;
+      }
+
+      .table-row.copied .check-indicator {
+        display: inline;
       }
 
       .seller-violations {
-        color: #718096;
-        font-size: 14px;
-        margin-bottom: 12px;
+        font-size: 13px;
+        color: #666;
       }
 
       .btn-group {
         display: flex;
         gap: 8px;
+        justify-content: flex-end;
       }
 
       .copy-btn {
-        background: #27ae60;
+        background: #0078d4;
         color: white;
         border: none;
-        padding: 10px 16px;
+        padding: 6px 16px;
         font-size: 13px;
-        border-radius: 4px;
+        border-radius: 2px;
         cursor: pointer;
-        flex: 1;
-        transition: background 0.2s ease;
+        transition: background 0.15s ease;
         font-weight: 500;
       }
 
       .copy-btn:hover {
-        background: #229954;
+        background: #106ebe;
       }
 
       .copy-btn.copied {
-        background: #1e8449;
-        position: relative;
+        background: #107c10;
       }
 
       .download-btn-small {
-        background: #5a6c7d;
-        color: white;
-        border: none;
-        padding: 10px 16px;
+        background: transparent;
+        color: #0078d4;
+        border: 1px solid #0078d4;
+        padding: 6px 16px;
         font-size: 13px;
-        border-radius: 4px;
+        border-radius: 2px;
         cursor: pointer;
-        flex: 1;
-        transition: background 0.2s ease;
+        transition: all 0.15s ease;
         font-weight: 500;
       }
 
       .download-btn-small:hover {
-        background: #4a5c6d;
+        background: #f3f9fd;
       }
 
       .alert {
