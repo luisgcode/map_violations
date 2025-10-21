@@ -9,7 +9,6 @@ import zipfile
 # Configure the page
 st.set_page_config(
     page_title="MAP Violation Email Generator",
-    page_icon="📧",
     layout="wide"
 )
 
@@ -168,7 +167,7 @@ def create_zip(emails_dict):
     return zip_buffer
 
 # Main App UI
-st.title("📧 MAP Violation Email Generator")
+st.title("MAP Violation Email Generator")
 st.markdown("---")
 st_title_container = st.container()
 with st_title_container:
