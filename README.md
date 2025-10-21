@@ -1,78 +1,86 @@
 # MAP Violation Email Generator
 
-Automated system to detect MAP (Minimum Advertised Price) violations and generate personalized emails ready to send.
-
-## Description
-
-This project reads Excel files with price data, identifies sellers who are violating minimum advertised price policies, and generates individual emails ready to copy and paste into Outlook.
+Professional web application to detect MAP (Minimum Advertised Price) violations and generate personalized emails.
 
 ## Features
 
-- ✅ Automatic reading of Excel files with price data
-- ✅ Violation detection based on price difference
-- ✅ Grouping of multiple violations by seller
-- ✅ Generation of personalized emails (singular/plural)
-- ✅ Format ready to copy/paste into Outlook
-- ✅ Individual output files per seller
+- Modern web interface with professional Microsoft-style design
+- Drag & drop Excel file upload
+- Automatic violation detection
+- One-click email copy with HTML formatting
+- Visual indicators for copied emails
+- No data persistence - fresh start every session
 
 ## Requirements
 
-- Python 3.x
+- Python 3.8 or higher
+- Flask
 - pandas
 - openpyxl
 
 ## Installation
 
+1. **Install Python dependencies:**
 ```bash
-pip install pandas openpyxl
+pip install -r requirements.txt
 ```
 
 ## Usage
 
-1. Place your Excel file in the project folder
-2. Make sure you have the email template (`MAP-mail-template`)
-3. Run the main script:
-
+1. **Start the application:**
 ```bash
-python generate_emails.py
+python app_flask.py
 ```
 
-4. Generated emails will be in the `output/` folder
-5. Copy and paste each email into Outlook
+2. **Open your browser:**
+   - Go to `http://localhost:5000`
+
+3. **Upload your Excel file:**
+   - Drag & drop or click to browse
+   - File must contain columns: `sellers`, `prices`, `U.S. MAP`, `price_difference`, `Description`, `SAP Material`, `seller_links`
+
+4. **Copy emails:**
+   - Click "Copy Email" next to each seller
+   - Paste directly into Outlook (Ctrl+V)
+   - Green checkmark indicates copied emails
+
+## Excel File Requirements
+
+Your Excel file must have these columns:
+- `sellers`: Seller/company name
+- `prices`: Current advertised price
+- `U.S. MAP`: Minimum advertised price
+- `price_difference`: Price difference (negative = violation)
+- `Description`: Product description
+- `SAP Material`: Product SKU
+- `seller_links`: URL to product listing (optional)
 
 ## Project Structure
 
 ```
-map-dimplex/
-├── generate_emails.py          # Main script
-├── MAP-mail-template           # Email template
-├── output/                     # Generated emails (ignored by git)
-├── .gitignore                  # Files to ignore
-└── README.md                   # This file
+mav_violations_v1/
+├── app_flask.py              # Main Flask application
+├── templates/
+│   └── index.html           # Web interface
+├── requirements.txt          # Python dependencies
+├── uploads/                  # Temporary uploaded files (git ignored)
+├── output/                   # Generated emails (git ignored)
+└── README.md                # This file
 ```
 
 ## Notes
 
-- Excel files and the output/ folder are excluded from the repository as they contain confidential information
-- The system does NOT connect to Outlook automatically (due to corporate restrictions)
-- User must manually copy and paste each email
+- Application runs locally on your computer
+- No data is saved between sessions
+- Emails are copied with HTML formatting
+- Works with any modern browser
+- Files in `uploads/` and `output/` are automatically cleaned on restart
 
-## Configuration
+## Created By
 
-To use this project:
-
-1. Add your Excel file with the following minimum columns:
-
-   - `sellers`: Seller name
-   - `prices`: Current price
-   - `U.S. MAP`: Minimum allowed price
-   - `price_difference`: Difference (negative = violation)
-   - `Description`: Product description
-   - `SAP Material`: SKU code
-   - `seller_links`: Links to products
-
-2. Customize the `MAP-mail-template` template according to your needs
+Marketing Team - Luis Guaiquirian
+Glen Dimplex Americas
 
 ## License
 
-Internal company use.
+Internal company use only.

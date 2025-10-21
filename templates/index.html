@@ -12,7 +12,8 @@
       }
 
       body {
-        font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+        font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, "Roboto",
+          sans-serif;
         background: #fafafa;
         min-height: 100vh;
         margin: 0;
@@ -22,7 +23,7 @@
       .container {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 30px;
+        padding: 60px 30px 30px 30px; /* top padding to compensate for fixed header */
       }
 
       .header {
@@ -327,10 +328,19 @@
       }
 
       .footer {
-        text-align: right;
-        margin-bottom: 20px;
+        text-align: center;
+        margin: 0;
         color: #999;
-        font-size: 11px;
+        font-size: 12px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 44px;
+        line-height: 44px;
+        background: white;
+        box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
+        z-index: 9999;
       }
     </style>
   </head>
@@ -338,10 +348,18 @@
     <div class="container">
       <div class="footer">Created by Marketing Team - Luis Guaiquirian</div>
       <div class="header">
-        <h1>📧 MAP Violation Email Generator</h1>
-        <p class="subtitle">
-          Upload your daily MAP Excel file to generate violation emails
-        </p>
+        <h1>
+          📧 MAP Violation Email Generator
+          <span
+            id="currentFilename"
+            style="
+              font-size: 14px;
+              color: #666;
+              margin-left: 10px;
+              font-weight: 400;
+            "
+          ></span>
+        </h1>
       </div>
 
       <!-- Upload Area -->
@@ -418,6 +436,9 @@
         // Validate file type
         if (!file.name.endsWith(".xlsx") && !file.name.endsWith(".xls")) {
           showAlert("Please upload an Excel file (.xlsx or .xls)", "error");
+          // clear filename if invalid
+          const filenameSpan = document.getElementById("currentFilename");
+          if (filenameSpan) filenameSpan.textContent = "";
           return;
         }
 
@@ -443,15 +464,26 @@
           if (data.error) {
             showAlert(data.error, "error");
             uploadSection.style.display = "block";
+            // clear filename on error
+            const filenameSpan = document.getElementById("currentFilename");
+            if (filenameSpan) filenameSpan.textContent = "";
             return;
           }
 
           // Show results
+          // If server returns the uploaded filename, ensure the title shows it (sanity)
+          if (data.uploaded_filename) {
+            const filenameSpan2 = document.getElementById("currentFilename");
+            if (filenameSpan2)
+              filenameSpan2.textContent = data.uploaded_filename;
+          }
           displayResults(data);
         } catch (error) {
           loader.classList.remove("active");
           showAlert("Error processing file. Please try again.", "error");
           uploadSection.style.display = "block";
+          const filenameSpan = document.getElementById("currentFilename");
+          if (filenameSpan) filenameSpan.textContent = "";
         }
       }
 
@@ -519,7 +551,8 @@
             )
             .join("");
 
-          document.getElementById("sellersTable").innerHTML = tableHeader + tableRows;
+          document.getElementById("sellersTable").innerHTML =
+            tableHeader + tableRows;
         }
       }
 
@@ -534,11 +567,78 @@
             return;
           }
 
-          // Copy HTML to clipboard
-          const htmlBlob = new Blob([data.body], { type: "text/html" });
-          const textBlob = new Blob([data.body.replace(/<[^>]*>/g, "")], {
-            type: "text/plain",
-          });
+          // Convert HTML -> plain text while preserving line breaks
+          function htmlToText(html) {
+            if (!html) return "";
+
+            // Replace <br> with newlines
+            let txt = html.replace(/<br\s*\/?>/gi, "\n");
+
+            // Replace closing block tags with newlines to preserve paragraphs/lists
+            txt = txt.replace(/<\/(p|div|li|tr|h[1-6]|blockquote)>/gi, "\n");
+
+            // Replace list item starts with a bullet and space
+            txt = txt.replace(/<li[^>]*>/gi, "\u2022 ");
+
+            // Remove remaining tags
+            txt = txt.replace(/<[^>]+>/g, "");
+
+            // Decode HTML entities using a temporary textarea
+            const ta = document.createElement("textarea");
+            ta.innerHTML = txt;
+            txt = ta.value;
+
+            // Normalize multiple blank lines and trim
+            txt = txt.replace(/\r\n|\r/g, "\n");
+            txt = txt.replace(/\n{3,}/g, "\n\n");
+            return txt.trim();
+          }
+
+          // Prepare robust HTML and plain-text for clipboard so Outlook pastes with line breaks
+          function escapeHTML(str) {
+            return String(str || "")
+              .replace(/&/g, "&amp;")
+              .replace(/</g, "&lt;")
+              .replace(/>/g, "&gt;")
+              .replace(/"/g, "&quot;")
+              .replace(/'/g, "&#39;");
+          }
+
+          function plainToHtml(text) {
+            if (!text) return "";
+            // Normalize newlines
+            const t = String(text).replace(/\r\n|\r/g, "\n");
+            // Split into paragraphs on double newlines
+            const paras = t.split(/\n{2,}/).map((p) => {
+              // Within a paragraph convert single newlines to <br>
+              const inner = escapeHTML(p).replace(/\n/g, "<br>");
+              return `<p>${inner}</p>`;
+            });
+            return `<div style="font-family: Arial, sans-serif; line-height:1.6; color:#333;">${paras.join(
+              ""
+            )}</div>`;
+          }
+
+          // Determine if server returned HTML or plain text
+          let htmlForClipboard = data.body || "";
+          const looksLikeHTML = /<[^>]+>/.test(String(htmlForClipboard));
+
+          if (!looksLikeHTML) {
+            // Convert plain text to safe HTML with paragraphs/BRs
+            htmlForClipboard = plainToHtml(htmlForClipboard);
+          } else {
+            // Ensure the HTML is wrapped to keep styling consistent
+            htmlForClipboard = `<div style="font-family: Arial, sans-serif; line-height:1.6; color:#333;">${data.body}</div>`;
+          }
+
+          // Create a plain-text version with CRLF line endings for Windows/Outlook
+          let plain = htmlToText(data.body);
+          if (!plain) plain = (data.body || "").toString();
+          // Normalize to CRLF which Outlook expects
+          plain = plain.replace(/\r\n|\r|\n/g, "\r\n");
+
+          const htmlBlob = new Blob([htmlForClipboard], { type: "text/html" });
+          const textBlob = new Blob([plain], { type: "text/plain" });
 
           const clipboardItem = new ClipboardItem({
             "text/html": htmlBlob,

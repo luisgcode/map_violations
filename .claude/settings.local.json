@@ -29,7 +29,12 @@
       "Bash(git add -A)",
       "Bash(git commit -m \"chore: switch from Render to Railway deployment\")",
       "Bash(git commit -m \"fix: update UI to corporate style and fix Railway deps\")",
-      "Bash(git commit -m \"fix: use latest pandas with binary wheels\")"
+      "Bash(git commit -m \"fix: use latest pandas with binary wheels\")",
+      "Bash(git add requirements.txt templates/index.html)",
+      "Bash(git commit -m \"fix: use stable dependency versions for deployment\")",
+      "Bash(git add nixpacks.toml)",
+      "Bash(git commit -m \"fix: add system dependencies and gunicorn config for Railway\")",
+      "Bash(git commit -m \"fix: force Python 3.11 in Railway\")"
     ],
     "deny": []
   }

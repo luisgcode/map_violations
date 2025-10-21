@@ -170,6 +170,9 @@ def create_zip(emails_dict):
 # Main App UI
 st.title("📧 MAP Violation Email Generator")
 st.markdown("---")
+st_title_container = st.container()
+with st_title_container:
+    st.markdown(f"# \ud83d\udce7 MAP Violation Email Generator <span id='uploaded-name' style='font-size:16px;color:gray;font-weight:400'></span>", unsafe_allow_html=True)
 
 st.markdown("""
 ### How to use:
@@ -191,6 +194,11 @@ uploaded_file = st.file_uploader(
 if uploaded_file is not None:
     try:
         # Process the file
+        # Display uploaded filename next to title
+        try:
+            st_title_container.markdown(f"# \ud83d\udce7 MAP Violation Email Generator <span style='font-size:16px;color:gray;font-weight:400'>- {uploaded_file.name}</span>", unsafe_allow_html=True)
+        except Exception:
+            pass
         with st.spinner("Analyzing Excel file..."):
             violations_df, total_rows = read_violations(uploaded_file)
 

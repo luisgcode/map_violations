@@ -44,7 +44,14 @@ def generate_email_single_product(product_row):
     subject = "IMMEDIATE ACTION REQUIRED - Glen Dimplex MAP Violation (1 Product)"
 
     # Build product line with clickable link
-    product_info = f"<p><strong>SKU {sku}</strong> ({description})<br><strong>MAP:</strong> ${map_price:.2f} | <strong style='color: #e53e3e;'>Your Price:</strong> ${current_price:.2f}</p>"
+    # Style prices to be larger and bold to stand out
+    map_html = f"<span style='font-size:15px; font-weight:700;'>${map_price:.2f}</span>"
+    your_price_html = f"<span style='font-size:16px; font-weight:800; color:#e53e3e;'>${current_price:.2f}</span>"
+
+    product_info = (
+        f"<p><strong>SKU {sku}</strong> ({description})<br>"
+        f"<strong>MAP:</strong> {map_html} &nbsp;|&nbsp; <strong>Your Price:</strong> {your_price_html}</p>"
+    )
 
     if product_link and product_link != 'N/A' and str(product_link).strip() and product_link != 'nan':
         product_info += f"<p><strong>Product Link:</strong> <a href='{product_link}'>{product_link}</a></p>"
@@ -83,7 +90,14 @@ def generate_email_multiple_products(products_df):
         product_link = row.get('seller_links', 'N/A')
 
         # Build product line with clickable link
-        product_line = f"<li><strong>SKU {sku}</strong> ({description})<br><strong>MAP:</strong> ${map_price:.2f} | <strong style='color: #e53e3e;'>Your Price:</strong> ${current_price:.2f}"
+        # Style prices to be larger and bold
+        map_html = f"<span style='font-size:15px; font-weight:700;'>${map_price:.2f}</span>"
+        your_price_html = f"<span style='font-size:16px; font-weight:800; color:#e53e3e;'>${current_price:.2f}</span>"
+
+        product_line = (
+            f"<li><strong>SKU {sku}</strong> ({description})<br>"
+            f"<strong>MAP:</strong> {map_html} &nbsp;|&nbsp; <strong>Your Price:</strong> {your_price_html}"
+        )
         if product_link and product_link != 'N/A' and str(product_link).strip() and product_link != 'nan':
             product_line += f"<br><strong>Link:</strong> <a href='{product_link}'>{product_link}</a>"
         product_line += "</li>"
@@ -178,8 +192,9 @@ def upload_file():
         # Generate emails
         emails = generate_emails(grouped_violations)
 
-        # Save emails to files
+        # Save emails to files (use .txt extension for download/consistency)
         for filename, email_data in emails.items():
+            # if generated filename ends with .html, also save a .txt version for downloads
             output_path = os.path.join(app.config['OUTPUT_FOLDER'], filename)
             with open(output_path, 'w', encoding='utf-8') as f:
                 f.write(email_data['content'])
@@ -199,7 +214,8 @@ def upload_file():
             'total_rows': total_rows,
             'total_violations': len(violations_df),
             'num_sellers': len(grouped_violations),
-            'sellers': sellers_data
+            'sellers': sellers_data,
+            'uploaded_filename': file.filename
         })
 
     except Exception as e:
@@ -267,8 +283,7 @@ if __name__ == '__main__':
     print("MAP VIOLATION EMAIL GENERATOR")
     print("=" * 80)
     print("\nStarting web server...")
-    port = int(os.environ.get('PORT', 5000))
-    print(f"Open your browser and go to: http://localhost:{port}")
+    print("Open your browser and go to: http://localhost:5000")
     print("\nPress CTRL+C to stop the server")
     print("=" * 80)
-    app.run(debug=False, host='0.0.0.0', port=port)
+    app.run(debug=True, host='127.0.0.1', port=5000)
