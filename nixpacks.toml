@@ -1,8 +1,12 @@
 [phases.setup]
-nixPkgs = ["python311"]
+nixPkgs = ["python311", "gcc", "gfortran"]
 
 [phases.install]
-cmds = ["pip install -r requirements.txt"]
+cmds = [
+  "pip install --upgrade pip",
+  "pip install --only-binary :all: pyarrow --no-deps",
+  "pip install -r requirements.txt"
+]
 
 [start]
-cmd = "gunicorn app_flask:app --bind 0.0.0.0:$PORT"
+cmd = "gunicorn app_flask:app --bind 0.0.0.0:$PORT --workers 1 --threads 2 --timeout 120"
