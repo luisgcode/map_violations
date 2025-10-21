@@ -14,7 +14,7 @@
       body {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
           "Helvetica", "Arial", sans-serif;
-        background: linear-gradient(135deg, #ffff 0%, #d9314e 100%);
+        background: #f5f5f5;
         min-height: 100vh;
         display: flex;
         justify-content: center;
@@ -24,11 +24,12 @@
 
       .container {
         background: white;
-        border-radius: 20px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         max-width: 900px;
         width: 100%;
         padding: 40px;
+        border: 1px solid #e0e0e0;
       }
 
       .header {
@@ -37,35 +38,36 @@
       }
 
       .header h1 {
-        font-size: 32px;
-        color: #2d3748;
-        margin-bottom: 10px;
+        font-size: 28px;
+        color: #1a1a1a;
+        margin-bottom: 8px;
+        font-weight: 600;
       }
 
       .header .subtitle {
-        color: #718096;
-        font-size: 16px;
+        color: #666;
+        font-size: 14px;
       }
 
       .upload-area {
-        border: 3px dashed #cbd5e0;
-        border-radius: 12px;
-        padding: 60px 20px;
+        border: 2px dashed #ccc;
+        border-radius: 4px;
+        padding: 50px 20px;
         text-align: center;
-        background: #f7fafc;
+        background: #fafafa;
         cursor: pointer;
-        transition: all 0.3s ease;
+        transition: all 0.2s ease;
         margin-bottom: 30px;
       }
 
       .upload-area:hover {
-        border-color: #667eea;
-        background: #edf2f7;
+        border-color: #999;
+        background: #f5f5f5;
       }
 
       .upload-area.dragging {
-        border-color: #667eea;
-        background: #e6fffa;
+        border-color: #666;
+        background: #f0f0f0;
       }
 
       .upload-icon {
@@ -89,20 +91,19 @@
       }
 
       .btn {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #2c3e50;
         color: white;
         border: none;
-        padding: 14px 32px;
-        font-size: 16px;
-        border-radius: 8px;
+        padding: 12px 28px;
+        font-size: 14px;
+        border-radius: 4px;
         cursor: pointer;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-        font-weight: 600;
+        transition: background 0.2s ease;
+        font-weight: 500;
       }
 
       .btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        background: #34495e;
       }
 
       .btn:disabled {
@@ -156,10 +157,10 @@
       }
 
       .metric-card {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #2c3e50;
         color: white;
-        padding: 12px;
-        border-radius: 12px;
+        padding: 20px;
+        border-radius: 4px;
         text-align: center;
       }
 
@@ -193,21 +194,40 @@
       }
 
       .seller-card {
-        background: #f7fafc;
-        border: 1px solid #e2e8f0;
-        border-radius: 8px;
+        background: #fafafa;
+        border: 1px solid #ddd;
+        border-radius: 4px;
         padding: 16px;
         transition: all 0.2s ease;
+        position: relative;
       }
 
       .seller-card:hover {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        transform: translateY(-2px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .seller-card.copied {
+        border-color: #27ae60;
+        background: #f0f9f4;
+      }
+
+      .seller-card .check-indicator {
+        display: none;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #27ae60;
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .seller-card.copied .check-indicator {
+        display: block;
       }
 
       .seller-name {
         font-weight: 600;
-        color: #2d3748;
+        color: #1a1a1a;
         margin-bottom: 8px;
       }
 
@@ -223,41 +243,42 @@
       }
 
       .copy-btn {
-        background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        background: #27ae60;
         color: white;
         border: none;
-        padding: 8px 16px;
-        font-size: 14px;
-        border-radius: 6px;
+        padding: 10px 16px;
+        font-size: 13px;
+        border-radius: 4px;
         cursor: pointer;
         flex: 1;
-        transition: all 0.2s ease;
-        font-weight: 600;
+        transition: background 0.2s ease;
+        font-weight: 500;
       }
 
       .copy-btn:hover {
-        opacity: 0.9;
-        transform: translateY(-1px);
+        background: #229954;
       }
 
       .copy-btn.copied {
-        background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+        background: #1e8449;
+        position: relative;
       }
 
       .download-btn-small {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #5a6c7d;
         color: white;
         border: none;
-        padding: 8px 16px;
-        font-size: 14px;
-        border-radius: 6px;
+        padding: 10px 16px;
+        font-size: 13px;
+        border-radius: 4px;
         cursor: pointer;
         flex: 1;
-        transition: all 0.2s ease;
+        transition: background 0.2s ease;
+        font-weight: 500;
       }
 
       .download-btn-small:hover {
-        opacity: 0.9;
+        background: #4a5c6d;
       }
 
       .alert {
@@ -279,13 +300,13 @@
       }
 
       .reset-btn {
-        background: #e2e8f0;
-        color: #2d3748;
+        background: #95a5a6;
+        color: white;
         margin-top: 20px;
       }
 
       .reset-btn:hover {
-        background: #cbd5e0;
+        background: #7f8c8d;
       }
 
       .footer {
@@ -456,7 +477,8 @@
           const sellersHTML = data.sellers
             .map(
               (seller) => `
-                    <div class="seller-card">
+                    <div class="seller-card" data-filename="${seller.filename}">
+                        <span class="check-indicator">✓</span>
                         <div class="seller-name">${seller.name}</div>
                         <div class="seller-violations">${
                           seller.violations
@@ -465,12 +487,12 @@
                             <button class="copy-btn" onclick="copyEmail('${
                               seller.filename
                             }', this)">
-                                📋 Copy Email
+                                Copy Email
                             </button>
                             <button class="download-btn-small" onclick="downloadFile('${
                               seller.filename
                             }')">
-                                📄 Download
+                                Download
                             </button>
                         </div>
                     </div>
@@ -506,12 +528,16 @@
 
           await navigator.clipboard.write([clipboardItem]);
 
-          // Visual feedback
+          // Mark the entire card as copied
+          const card = button.closest('.seller-card');
+          card.classList.add('copied');
+
+          // Visual feedback on button
           const originalText = button.innerHTML;
           button.innerHTML = "✓ Copied!";
           button.classList.add("copied");
 
-          // Reset button after 2 seconds
+          // Reset button after 2 seconds but keep card marked
           setTimeout(() => {
             button.innerHTML = originalText;
             button.classList.remove("copied");
@@ -519,7 +545,7 @@
 
           // Show success message with subject
           showAlert(
-            `✓ Email copied with formatting! Now paste it in Outlook (Ctrl+V)<br><strong>Subject:</strong> ${data.subject}`,
+            `✓ Email copied! Paste it in Outlook (Ctrl+V)<br><strong>Subject:</strong> ${data.subject}`,
             "success"
           );
         } catch (error) {
