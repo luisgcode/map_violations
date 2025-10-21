@@ -19,11 +19,61 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['OUTPUT_FOLDER'] = OUTPUT_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
 
+def validate_excel_columns(df):
+    """Validate that all required columns are present"""
+    required_columns = ['sellers', 'prices', 'U.S. MAP', 'price_difference', 'Description', 'SAP Material', 'seller_links']
+    missing_columns = [col for col in required_columns if col not in df.columns]
+    
+    if missing_columns:
+        raise ValueError(f"Missing required columns: {', '.join(missing_columns)}")
+    
+    return True
+
 def read_violations(file_path):
-    """Read Excel and filter violations"""
-    df = pd.read_excel(file_path)
-    violations = df[df['price_difference'] < 0].copy()
-    return violations, len(df)
+    """Read Excel and filter violations with validation"""
+    try:
+        df = pd.read_excel(file_path)
+        
+        # Validate columns exist
+        validate_excel_columns(df)
+        
+        # Check for empty dataframe
+        if df.empty:
+            raise ValueError("Excel file is empty")
+        
+        # Validate data types and values
+        if not pd.api.types.is_numeric_dtype(df['prices']):
+            raise ValueError("'prices' column must contain numeric values")
+        
+        if not pd.api.types.is_numeric_dtype(df['U.S. MAP']):
+            raise ValueError("'U.S. MAP' column must contain numeric values")
+            
+        if not pd.api.types.is_numeric_dtype(df['price_difference']):
+            raise ValueError("'price_difference' column must contain numeric values")
+        
+        # Filter violations (price_difference < 0 means current price < MAP price)
+        violations = df[df['price_difference'] < 0].copy()
+        
+        # Validate that we have actual violations
+        if len(violations) == 0:
+            return violations, len(df)  # No violations found, but data is valid
+        
+        # Additional validation for violations
+        for idx, row in violations.iterrows():
+            if pd.isna(row['sellers']) or str(row['sellers']).strip() == '':
+                raise ValueError(f"Row {idx + 1}: Seller name is empty")
+            
+            if pd.isna(row['Description']) or str(row['Description']).strip() == '':
+                raise ValueError(f"Row {idx + 1}: Description is empty")
+            
+            if pd.isna(row['SAP Material']) or str(row['SAP Material']).strip() == '':
+                raise ValueError(f"Row {idx + 1}: SAP Material is empty")
+        
+        return violations, len(df)
+        
+    except Exception as e:
+        print(f"Error reading Excel file: {str(e)}")
+        raise
 
 def group_by_seller(violations_df):
     """Group violations by seller"""
@@ -192,9 +242,8 @@ def upload_file():
         # Generate emails
         emails = generate_emails(grouped_violations)
 
-        # Save emails to files (use .txt extension for download/consistency)
+        # Save emails to files
         for filename, email_data in emails.items():
-            # if generated filename ends with .html, also save a .txt version for downloads
             output_path = os.path.join(app.config['OUTPUT_FOLDER'], filename)
             with open(output_path, 'w', encoding='utf-8') as f:
                 f.write(email_data['content'])
@@ -205,9 +254,17 @@ def upload_file():
             sellers_data.append({
                 'name': seller_name,
                 'violations': len(seller_violations),
-                'filename': f"email_{clean_filename(seller_name)}.txt"
+                'filename': f"email_{clean_filename(seller_name)}.html"
             })
 
+        # Generate summary stats for verification
+        price_stats = {
+            'avg_map_price': float(violations_df['U.S. MAP'].mean()),
+            'avg_current_price': float(violations_df['prices'].mean()),
+            'max_violation': float(abs(violations_df['price_difference']).max()),
+            'min_violation': float(abs(violations_df['price_difference']).min())
+        }
+        
         return jsonify({
             'success': True,
             'no_violations': False,
@@ -215,7 +272,8 @@ def upload_file():
             'total_violations': len(violations_df),
             'num_sellers': len(grouped_violations),
             'sellers': sellers_data,
-            'uploaded_filename': file.filename
+            'uploaded_filename': file.filename,
+            'verification_stats': price_stats
         })
 
     except Exception as e:
@@ -226,8 +284,22 @@ def get_email_content(filename):
     """Get email content as JSON for clipboard copy with HTML format"""
     try:
         file_path = os.path.join(app.config['OUTPUT_FOLDER'], filename)
-        with open(file_path, 'r', encoding='utf-8') as f:
-            full_content = f.read()
+        
+        # Check if file exists
+        if not os.path.exists(file_path):
+            return jsonify({'error': f'File not found: {filename}'}), 404
+        
+        # Try to read with UTF-8 first, then fallback to other encodings
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                full_content = f.read()
+        except UnicodeDecodeError:
+            try:
+                with open(file_path, 'r', encoding='latin-1') as f:
+                    full_content = f.read()
+            except:
+                with open(file_path, 'r', encoding='cp1252') as f:
+                    full_content = f.read()
 
         # Split subject and body
         if 'Subject:' in full_content:
@@ -243,7 +315,24 @@ def get_email_content(filename):
             'body': body
         })
     except Exception as e:
-        return jsonify({'error': f'File not found: {str(e)}'}), 404
+        print(f"Error in get_email_content: {str(e)}")  # Debug print
+        return jsonify({'error': f'Error reading file: {str(e)}'}), 500
+
+@app.route('/verify-data/<filename>')
+def verify_data(filename):
+    """Get detailed verification data for a seller"""
+    try:
+        file_path = os.path.join(app.config['OUTPUT_FOLDER'], filename)
+        if not os.path.exists(file_path):
+            return jsonify({'error': 'File not found'}), 404
+        
+        # We need to get the original data - this is a simplified version
+        # In a real implementation, you'd store the violation data temporarily
+        return jsonify({
+            'message': 'Verification endpoint - implementation depends on data storage strategy'
+        })
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/download/<filename>')
 def download_file(filename):

@@ -133,17 +133,19 @@ def main() -> None:
     create_venv(venv_path)
     install_requirements(venv_path, REQ_FILE)
     create_folders()
-        # Optionally run the app if requested
-        if args.run:
-            print("Starting the application inside the virtual environment...")
-            python_exe = get_python_executable(venv_path)
-            if not python_exe.exists():
-                print(f"Python executable not found in venv at {python_exe}")
-                return
-            try:
-                run([str(python_exe), "app_flask.py"])
-            except subprocess.CalledProcessError as e:
-                print(f"Failed to start app: {e}")
+    
+    # Optionally run the app if requested
+    if args.run:
+        print("Starting the application inside the virtual environment...")
+        python_exe = get_python_executable(venv_path)
+        if not python_exe.exists():
+            print(f"Python executable not found in venv at {python_exe}")
+            return
+        try:
+            run([str(python_exe), "app_flask.py"])
+        except subprocess.CalledProcessError as e:
+            print(f"Failed to start app: {e}")
+    
     print_next_steps(venv_path)
 
 

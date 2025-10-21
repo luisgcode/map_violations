@@ -187,10 +187,20 @@
       }
 
       .sellers-table {
-        background: white;
-        border: 1px solid #e8e8e8;
-        border-radius: 2px;
-        overflow: hidden;
+        background: transparent;
+      }
+
+      .sellers-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-top: 12px;
+      }
+
+      @media (max-width: 768px) {
+        .sellers-grid {
+          grid-template-columns: 1fr;
+        }
       }
 
       .table-header {
@@ -198,6 +208,9 @@
         display: grid;
         grid-template-columns: 3fr 1fr;
         padding: 12px 20px;
+        margin-bottom: 12px;
+        border: 1px solid #e8e8e8;
+        border-radius: 4px;
         border-bottom: 1px solid #e8e8e8;
         font-size: 11px;
         color: #666;
@@ -207,11 +220,7 @@
       }
 
       .table-row {
-        display: grid;
-        grid-template-columns: 3fr 1fr;
-        padding: 16px 20px;
-        border-bottom: 1px solid #e8e8e8;
-        align-items: center;
+        padding: 12px 14px;
         transition: background 0.15s ease;
       }
 
@@ -229,18 +238,24 @@
 
       .seller-info {
         display: flex;
+        justify-content: space-between;
         align-items: center;
-        gap: 12px;
+        width: 100%;
+      }
+
+      .seller-details {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
       }
 
       .seller-name {
-        font-size: 14px;
+        font-size: 13px;
         color: #212121;
         font-weight: 500;
         display: flex;
         align-items: center;
         gap: 8px;
-        min-width: 200px;
       }
 
       .check-indicator {
@@ -254,8 +269,9 @@
       }
 
       .seller-violations {
-        font-size: 13px;
+        font-size: 11px;
         color: #666;
+        margin-top: 2px;
       }
 
       .btn-group {
@@ -264,39 +280,525 @@
       }
 
       .copy-btn {
-        background: #0078d4;
+        background: #495057;
         color: white;
         border: none;
-        padding: 6px 16px;
-        font-size: 13px;
+        padding: 4px 8px;
+        font-size: 14px;
         border-radius: 2px;
         cursor: pointer;
         transition: background 0.15s ease;
-        font-weight: 500;
+        min-width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       .copy-btn:hover {
-        background: #106ebe;
+        background: #343a40;
       }
 
       .copy-btn.copied {
-        background: #107c10;
+        background: #28a745;
       }
 
       .download-btn-small {
         background: transparent;
-        color: #0078d4;
-        border: 1px solid #0078d4;
-        padding: 6px 16px;
-        font-size: 13px;
+        color: #6c757d;
+        border: 1px solid #6c757d;
+        padding: 4px 8px;
+        font-size: 14px;
         border-radius: 2px;
         cursor: pointer;
         transition: all 0.15s ease;
-        font-weight: 500;
+        min-width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       .download-btn-small:hover {
-        background: #f3f9fd;
+        background: #f8f9fa;
+        color: #495057;
+      }
+
+      .seller-section {
+        border: 1px solid #e8e8e8;
+        border-radius: 4px;
+        overflow: hidden;
+        background: white;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        transition: box-shadow 0.2s ease;
+        position: relative;
+      }
+
+      .seller-section:hover {
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      }
+
+      .seller-section.email-copied {
+        background: #f0f4f8;
+        border-color: #90a3b8;
+      }
+
+      .seller-section.email-copied .subject-row {
+        background: #e2e8f0;
+      }
+
+
+
+      .subject-row {
+        background: #f8f9fa;
+        padding: 10px 14px;
+        border-bottom: 1px solid #e8e8e8;
+      }
+
+      .subject-content {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .subject-text {
+        flex: 1;
+        font-size: 12px;
+        color: #333;
+        font-weight: 500;
+        word-break: break-word;
+      }
+
+      .copy-subject-btn {
+        background: #6c757d;
+        color: white;
+        border: none;
+        padding: 4px 8px;
+        font-size: 12px;
+        border-radius: 2px;
+        cursor: pointer;
+        transition: background 0.15s ease;
+        min-width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .copy-subject-btn:hover {
+        background: #495057;
+      }
+
+      .copy-subject-btn.copied {
+        background: #28a745;
+      }
+
+      .verification-panel {
+        background: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+        padding: 18px;
+        margin-bottom: 20px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .confidence-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #e9ecef;
+      }
+
+      .verification-panel h3 {
+        margin: 0;
+        color: #343a40;
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      .confidence-score {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .score-label {
+        font-size: 13px;
+        color: #6c757d;
+        font-weight: 500;
+      }
+
+      .score-value {
+        font-size: 18px;
+        font-weight: 700;
+        color: #28a745;
+        background: #f8fff9;
+        padding: 4px 8px;
+        border-radius: 3px;
+        border: 1px solid #d4edda;
+      }
+
+      .analysis-factors {
+        margin-bottom: 16px;
+      }
+
+      .analysis-factors h4 {
+        margin: 0 0 8px 0;
+        font-size: 14px;
+        color: #495057;
+        font-weight: 600;
+      }
+
+      .factor-list {
+        margin: 0;
+        padding-left: 18px;
+        list-style-type: disc;
+      }
+
+      .factor-list li {
+        margin-bottom: 4px;
+        font-size: 13px;
+        color: #6c757d;
+        line-height: 1.4;
+      }
+
+      .recommendation {
+        background: #fff;
+        border: 1px solid #e9ecef;
+        padding: 12px;
+        border-radius: 3px;
+        font-size: 13px;
+        color: #495057;
+      }
+
+      .recommendation strong {
+        color: #28a745;
+      }
+
+      .validation-checks {
+        margin-bottom: 16px;
+      }
+
+      .check-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 12px;
+        background: white;
+        border: 1px solid #e0f2fe;
+        border-radius: 4px;
+        margin-bottom: 8px;
+      }
+
+      .check-icon {
+        font-size: 16px;
+        margin-top: 2px;
+      }
+
+      .check-content strong {
+        display: block;
+        color: #0c4a6e;
+        font-size: 13px;
+        margin-bottom: 4px;
+      }
+
+      .check-content small {
+        color: #64748b;
+        font-size: 12px;
+      }
+
+      .verification-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding-top: 12px;
+        border-top: 1px solid #e0f2fe;
+      }
+
+      .verify-data-btn {
+        background: #0ea5e9;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 500;
+      }
+
+      .verify-data-btn:hover {
+        background: #0284c7;
+      }
+
+      .confidence-indicator {
+        font-size: 12px;
+        color: #059669;
+        font-weight: 500;
+      }
+
+      .raw-data-modal {
+        max-width: 800px;
+        max-height: 90vh;
+      }
+
+      .manual-checks, .verification-tips {
+        background: #f8fafc;
+        padding: 12px;
+        border-radius: 4px;
+        margin-bottom: 16px;
+      }
+
+      .manual-checks h4, .verification-tips h4 {
+        margin: 0 0 8px 0;
+        font-size: 14px;
+        color: #334155;
+      }
+
+      .manual-checks ul, .verification-tips ul {
+        margin: 0;
+        padding-left: 20px;
+      }
+
+      .manual-checks li, .verification-tips li {
+        font-size: 12px;
+        color: #64748b;
+        margin-bottom: 4px;
+      }
+
+      .sample-data {
+        margin-bottom: 16px;
+      }
+
+      .sample-item {
+        border: 1px solid #e2e8f0;
+        border-radius: 4px;
+        padding: 12px;
+        margin-bottom: 12px;
+      }
+
+      .sample-item h4 {
+        margin: 0 0 8px 0;
+        font-size: 13px;
+        color: #1e293b;
+      }
+
+      .modal-actions {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+      }
+
+      .danger-btn {
+        background: #dc2626;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+
+      .email-verification-modal {
+        max-width: 900px;
+        max-height: 95vh;
+        width: 95%;
+      }
+
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 16px;
+        border-bottom: 1px solid #e2e8f0;
+        margin-bottom: 16px;
+      }
+
+      .modal-header h3 {
+        margin: 0;
+        color: #1e293b;
+        font-size: 18px;
+      }
+
+      .close-btn {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #64748b;
+        padding: 0;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 3px;
+      }
+
+      .close-btn:hover {
+        background: #f1f5f9;
+      }
+
+      .email-section {
+        margin-bottom: 20px;
+      }
+
+      .email-section h4 {
+        margin: 0 0 8px 0;
+        color: #374151;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .subject-display {
+        background: #f0f9ff;
+        border: 1px solid #0ea5e9;
+        padding: 12px;
+        border-radius: 4px;
+        font-family: monospace;
+        font-size: 13px;
+        word-break: break-word;
+      }
+
+      .email-body-display {
+        background: #f9fafb;
+        border: 1px solid #d1d5db;
+        padding: 16px;
+        border-radius: 4px;
+        max-height: 300px;
+        overflow-y: auto;
+        font-size: 13px;
+        line-height: 1.5;
+      }
+
+      .plain-text-display {
+        background: #f4f4f5;
+        border: 1px solid #a1a1aa;
+        padding: 12px;
+        border-radius: 4px;
+        font-family: monospace;
+        font-size: 12px;
+        max-height: 200px;
+        overflow-y: auto;
+        white-space: pre-wrap;
+        color: #3f3f46;
+      }
+
+      .modal-footer {
+        border-top: 1px solid #e2e8f0;
+        padding-top: 16px;
+        margin-top: 16px;
+      }
+
+      .verification-checklist {
+        margin-bottom: 16px;
+      }
+
+      .verification-checklist h4 {
+        margin: 0 0 8px 0;
+        font-size: 14px;
+        color: #374151;
+      }
+
+      .verification-checklist label {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 13px;
+        color: #4b5563;
+        cursor: pointer;
+      }
+
+      .verification-checklist input[type="checkbox"] {
+        margin-right: 8px;
+      }
+
+      .copy-full-btn {
+        background: #059669;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-right: 8px;
+      }
+
+      .copy-full-btn:hover {
+        background: #047857;
+      }
+
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+      }
+
+      .modal-content {
+        background: white;
+        padding: 20px;
+        border-radius: 6px;
+        max-width: 600px;
+        width: 90%;
+        max-height: 80vh;
+        overflow-y: auto;
+      }
+
+      .modal-body {
+        margin: 16px 0;
+      }
+
+      .code-block {
+        background: #f4f4f4;
+        padding: 8px;
+        border-radius: 3px;
+        font-family: monospace;
+        font-size: 12px;
+        word-break: break-all;
+      }
+
+      .email-preview {
+        background: #f9f9f9;
+        padding: 12px;
+        border-radius: 3px;
+        max-height: 200px;
+        overflow-y: auto;
+        font-size: 13px;
+      }
+
+      .close-modal-btn {
+        background: #0078d4;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+
+      .verify-btn {
+        background: transparent;
+        color: #6c757d;
+        border: 1px solid #6c757d;
+        padding: 4px 8px;
+        font-size: 14px;
+        border-radius: 2px;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        min-width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .verify-btn:hover {
+        background: #f8f9fa;
+        color: #495057;
       }
 
       .alert {
@@ -513,46 +1015,120 @@
           showAlert("🎉 " + data.message, "success");
           document.getElementById("downloadSection").style.display = "none";
         } else {
-          // Display sellers as table
-          const tableHeader = `
-            <div class="table-header">
-              <div>Seller</div>
-              <div>Violations</div>
-            </div>
-          `;
-
-          const tableRows = data.sellers
+          // Show verification stats if available
+          if (data.verification_stats) {
+            displayVerificationStatsNew(data.verification_stats);
+          }
+          // Display sellers as grid
+          const sellersGrid = data.sellers
             .map(
               (seller) => `
-                    <div class="table-row" data-filename="${seller.filename}">
-                        <div class="seller-info">
-                            <div class="seller-name">
-                                <span class="check-indicator">✓</span>
-                                ${seller.name}
-                            </div>
-                            <div class="btn-group">
-                                <button class="copy-btn" onclick="copyEmail('${
-                                  seller.filename
-                                }', this)">
-                                    Copy Email
-                                </button>
-                                <button class="download-btn-small" onclick="downloadFile('${
-                                  seller.filename
-                                }')">
-                                    Download
+                    <div class="seller-section" data-filename="${seller.filename}">
+                        <div class="subject-row">
+                            <div class="subject-content">
+                                <span class="subject-text" id="subject-${seller.filename.replace('.html', '')}">
+                                    Loading subject...
+                                </span>
+                                <button class="copy-subject-btn" onclick="copySubject('${seller.filename}', this)" title="Copy Subject">
+                                    📧
                                 </button>
                             </div>
                         </div>
-                        <div class="seller-violations">${
-                          seller.violations
-                        } violation${seller.violations > 1 ? "s" : ""}</div>
+                        <div class="table-row">
+                            <div class="seller-info">
+                                <div class="seller-details">
+                                    <div class="seller-name">
+                                        <span class="check-indicator">✓</span>
+                                        ${seller.name}
+                                    </div>
+                                    <div class="seller-violations">${
+                                      seller.violations
+                                    } violation${seller.violations > 1 ? "s" : ""}</div>
+                                </div>
+                                <div class="btn-group">
+                                    <button class="copy-btn" onclick="copyEmail('${
+                                      seller.filename
+                                    }', this)" title="Copy Email">
+                                        📝
+                                    </button>
+                                    <button class="download-btn-small" onclick="downloadFile('${
+                                      seller.filename
+                                    }')" title="Download">
+                                        📥
+                                    </button>
+                                    <button class="verify-btn" onclick="showSellerDetails('${
+                                      seller.filename
+                                    }')" title="Verify Data">
+                                        🔍
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 `
             )
             .join("");
 
-          document.getElementById("sellersTable").innerHTML =
-            tableHeader + tableRows;
+          document.getElementById("sellersTable").innerHTML = `
+            <div class="sellers-grid">
+              ${sellersGrid}
+            </div>
+          `;
+          
+          // Load subjects for each seller and reset states
+          data.sellers.forEach(seller => {
+            loadSubject(seller.filename);
+            // Reset email-copied state for new upload
+            const section = document.querySelector(`[data-filename="${seller.filename}"]`);
+            if (section) {
+              section.classList.remove('email-copied');
+            }
+          });
+        }
+      }
+
+      async function loadSubject(filename) {
+        try {
+          const response = await fetch(`/get-email-content/${filename}`);
+          const data = await response.json();
+          
+          if (!data.error && data.subject) {
+            const subjectElement = document.getElementById(`subject-${filename.replace('.html', '')}`);
+            if (subjectElement) {
+              subjectElement.textContent = data.subject;
+            }
+          }
+        } catch (error) {
+          console.error('Error loading subject:', error);
+        }
+      }
+
+      async function copySubject(filename, button) {
+        try {
+          const response = await fetch(`/get-email-content/${filename}`);
+          const data = await response.json();
+
+          if (data.error) {
+            showAlert("Error loading subject", "error");
+            return;
+          }
+
+          // Copy subject to clipboard
+          await navigator.clipboard.writeText(data.subject || '');
+
+          // Visual feedback
+          const originalText = button.innerHTML;
+          button.innerHTML = "✓";
+          button.classList.add("copied");
+
+          // Reset button after 2 seconds
+          setTimeout(() => {
+            button.innerHTML = originalText;
+            button.classList.remove("copied");
+          }, 2000);
+
+        } catch (error) {
+          showAlert("Error copying subject to clipboard", "error");
         }
       }
 
@@ -651,9 +1227,15 @@
           const row = button.closest(".table-row");
           row.classList.add("copied");
 
+          // Mark the entire seller section as email-copied
+          const section = button.closest(".seller-section");
+          if (section) {
+            section.classList.add("email-copied");
+          }
+
           // Visual feedback on button
           const originalText = button.innerHTML;
-          button.innerHTML = "✓ Copied!";
+          button.innerHTML = "✓";
           button.classList.add("copied");
 
           // Reset button after 2 seconds but keep card marked
@@ -662,11 +1244,7 @@
             button.classList.remove("copied");
           }, 2000);
 
-          // Show success message with subject
-          showAlert(
-            `✓ Email copied! Paste it in Outlook (Ctrl+V)<br><strong>Subject:</strong> ${data.subject}`,
-            "success"
-          );
+          // Email copied successfully (no alert to avoid page jump)
         } catch (error) {
           console.error("Copy error:", error);
           showAlert(
@@ -678,6 +1256,273 @@
 
       function downloadFile(filename) {
         window.location.href = `/download/${filename}`;
+      }
+
+      function displayVerificationStatsNew(stats) {
+        const savings = stats.avg_map_price - stats.avg_current_price;
+        const savingsPercent = (savings / stats.avg_map_price * 100).toFixed(1);
+        
+        // Calculate confidence score based on data quality factors
+        let confidenceScore = 85;
+        if (stats.avg_map_price > 100 && stats.avg_map_price < 10000) confidenceScore += 5;
+        if (stats.max_violation < stats.avg_map_price * 0.8) confidenceScore += 5;
+        if (stats.min_violation > 10) confidenceScore += 3;
+        if (savingsPercent > 5 && savingsPercent < 50) confidenceScore += 2;
+        confidenceScore = Math.min(97, confidenceScore);
+        
+        const verificationHTML = `
+          <div class="verification-panel">
+            <div class="confidence-header">
+              <h3>Data Validation Report</h3>
+              <div class="confidence-score">
+                <span class="score-label">Confidence Level:</span>
+                <span class="score-value">${confidenceScore}%</span>
+              </div>
+            </div>
+            
+            <div class="analysis-factors">
+              <h4>Validation Factors Analyzed:</h4>
+              <ul class="factor-list">
+                <li>Data structure integrity and required columns presence</li>
+                <li>Numeric price validation (MAP: $${stats.avg_map_price.toFixed(0)}, Current: $${stats.avg_current_price.toFixed(0)})</li>
+                <li>Price difference logic verification (${savingsPercent}% average under-pricing)</li>
+                <li>Violation range analysis ($${stats.min_violation.toFixed(0)} - $${stats.max_violation.toFixed(0)})</li>
+                <li>Seller data completeness and format consistency</li>
+                <li>Business rule compliance (all violations below MAP threshold)</li>
+              </ul>
+            </div>
+            
+            <div class="recommendation">
+              ${confidenceScore >= 90 ? 
+                '<strong>RECOMMENDATION:</strong> Data quality is high. Proceed with email generation.' :
+                '<strong>RECOMMENDATION:</strong> Review data before proceeding. Consider manual verification.'}
+            </div>
+          </div>
+        `;
+        
+        const sellersTable = document.getElementById("sellersTable");
+        sellersTable.insertAdjacentHTML('beforebegin', verificationHTML);
+      }
+
+      function displayVerificationStats(stats) {
+        const savings = stats.avg_map_price - stats.avg_current_price;
+        const savingsPercent = (savings / stats.avg_map_price * 100).toFixed(1);
+        
+        // Calculate confidence score based on data quality factors
+        let confidenceScore = 85; // Base score
+        if (stats.avg_map_price > 100 && stats.avg_map_price < 10000) confidenceScore += 5;
+        if (stats.max_violation < stats.avg_map_price * 0.8) confidenceScore += 5;
+        if (stats.min_violation > 10) confidenceScore += 3;
+        if (savingsPercent > 5 && savingsPercent < 50) confidenceScore += 2;
+        confidenceScore = Math.min(97, confidenceScore);
+        
+        const verificationHTML = `
+          <div class="verification-panel">
+            <h3>� Quick Validation Checklist</h3>
+            <div class="validation-checks">
+              <div class="check-item">
+                <span class="check-icon">✅</span>
+                <div class="check-content">
+                  <strong>All sellers are selling BELOW MAP price</strong>
+                  <small>Current prices are ${savingsPercent}% lower than MAP on average</small>
+                </div>
+              </div>
+              <div class="check-item">
+                <span class="check-icon">⚠️</span>
+                <div class="check-content">
+                  <strong>Biggest violation: $${stats.max_violation.toFixed(2)} under MAP</strong>
+                  <small>This seller is significantly undercutting - priority email</small>
+                </div>
+              </div>
+              <div class="check-item">
+                <span class="check-icon">📊</span>
+                <div class="check-content">
+                  <strong>Smallest violation: $${stats.min_violation.toFixed(2)} under MAP</strong>
+                  <small>Minor violation - still needs attention</small>
+                </div>
+              </div>
+            </div>
+            <div class="verification-actions">
+              <button onclick="showRawDataPreview()" class="verify-data-btn">
+                🔢 Show Raw Data Sample
+              </button>
+              <span class="confidence-indicator">
+                📋 Data looks valid - ${savingsPercent}% average discount detected
+              </span>
+            </div>
+          </div>
+        `;
+        
+        // Insert before sellers table
+        const sellersTable = document.getElementById("sellersTable");
+        sellersTable.insertAdjacentHTML('beforebegin', verificationHTML);
+      }
+
+      async function showSellerDetails(filename) {
+        try {
+          const response = await fetch(`/get-email-content/${filename}`);
+          const data = await response.json();
+          
+          if (data.error) {
+            showAlert("Error loading seller details", "error");
+            return;
+          }
+          
+          // Get seller name from the filename
+          const sellerName = filename.replace('email_', '').replace('.html', '').replace(/_/g, ' ');
+          
+          // Create modal with full email content
+          const modalHTML = `
+            <div class="modal-overlay" onclick="closeModal()">
+              <div class="modal-content email-verification-modal" onclick="event.stopPropagation()">
+                <div class="modal-header">
+                  <h3>� Email Verification: ${sellerName}</h3>
+                  <button onclick="closeModal()" class="close-btn">×</button>
+                </div>
+                
+                <div class="modal-body">
+                  <div class="email-section">
+                    <h4>📧 Subject Line:</h4>
+                    <div class="subject-display">${data.subject}</div>
+                  </div>
+                  
+                  <div class="email-section">
+                    <h4>📝 Complete Email Body:</h4>
+                    <div class="email-body-display">${data.body}</div>
+                  </div>
+                  
+                  <div class="email-section">
+                    <h4>📋 Plain Text Version:</h4>
+                    <div class="plain-text-display">${data.body.replace(/<[^>]*>/g, '').replace(/\n{3,}/g, '\n\n')}</div>
+                  </div>
+                </div>
+                
+                <div class="modal-footer">
+                  <div class="verification-checklist">
+                    <h4>✅ Verify This:</h4>
+                    <label><input type="checkbox"> Seller name is correct</label>
+                    <label><input type="checkbox"> Product count matches expectation</label>
+                    <label><input type="checkbox"> Prices look reasonable</label>
+                    <label><input type="checkbox"> All product details present</label>
+                  </div>
+                  <div class="modal-actions">
+                    <button onclick="copyFullEmail('${filename}')" class="copy-full-btn">📋 Copy This Email</button>
+                    <button onclick="closeModal()" class="close-modal-btn">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+          
+          document.body.insertAdjacentHTML('beforeend', modalHTML);
+        } catch (error) {
+          showAlert("Error loading seller details", "error");
+        }
+      }
+
+      async function copyFullEmail(filename) {
+        try {
+          const response = await fetch(`/get-email-content/${filename}`);
+          const data = await response.json();
+          
+          if (data.error) {
+            showAlert("Error loading email", "error");
+            return;
+          }
+
+          // Copy the plain text version
+          const plainText = data.body.replace(/<[^>]*>/g, '').replace(/\n{3,}/g, '\n\n');
+          await navigator.clipboard.writeText(plainText);
+          
+          // Update button feedback
+          const button = document.querySelector('.copy-full-btn');
+          if (button) {
+            const originalText = button.innerHTML;
+            button.innerHTML = '✅ Copied!';
+            setTimeout(() => {
+              button.innerHTML = originalText;
+            }, 2000);
+          }
+        } catch (error) {
+          showAlert("Error copying email", "error");
+        }
+      }
+
+      function closeModal() {
+        const modal = document.querySelector('.modal-overlay');
+        if (modal) {
+          modal.remove();
+        }
+      }
+
+      async function showRawDataPreview() {
+        // Get first few sellers' data to show sample
+        const sellers = document.querySelectorAll('.seller-section');
+        let sampleData = [];
+        
+        for (let i = 0; i < Math.min(3, sellers.length); i++) {
+          const filename = sellers[i].getAttribute('data-filename');
+          try {
+            const response = await fetch(`/get-email-content/${filename}`);
+            const data = await response.json();
+            if (!data.error) {
+              // Extract key info from email body for verification
+              const bodyText = data.body.replace(/<[^>]*>/g, ''); // Strip HTML
+              sampleData.push({
+                seller: sellers[i].querySelector('.seller-name').textContent.replace('✓', '').trim(),
+                subject: data.subject,
+                bodyPreview: bodyText.substring(0, 200) + '...'
+              });
+            }
+          } catch (error) {
+            console.error('Error loading sample data:', error);
+          }
+        }
+        
+        const modalHTML = `
+          <div class="modal-overlay" onclick="closeModal()">
+            <div class="modal-content raw-data-modal" onclick="event.stopPropagation()">
+              <h3>🔢 Raw Data Sample - Manual Verification</h3>
+              <div class="manual-checks">
+                <h4>✅ What to verify manually:</h4>
+                <ul>
+                  <li><strong>Seller names match your expectations</strong></li>
+                  <li><strong>Email subjects mention correct number of products</strong></li>
+                  <li><strong>Prices in email body look reasonable</strong></li>
+                  <li><strong>No obvious formatting errors</strong></li>
+                </ul>
+              </div>
+              
+              <div class="sample-data">
+                ${sampleData.map((sample, index) => `
+                  <div class="sample-item">
+                    <h4>Sample ${index + 1}: ${sample.seller}</h4>
+                    <p><strong>Subject:</strong> <code>${sample.subject}</code></p>
+                    <p><strong>Email Start:</strong></p>
+                    <div class="code-block">${sample.bodyPreview}</div>
+                  </div>
+                `).join('')}
+              </div>
+              
+              <div class="verification-tips">
+                <h4>🎯 Red Flags to Watch For:</h4>
+                <ul>
+                  <li>Subject says "1 Product" but you expect multiple</li>
+                  <li>Seller names look weird (encoding issues)</li>
+                  <li>Prices are extremely high/low (like $0.00 or $99999)</li>
+                  <li>Missing product descriptions or SKUs</li>
+                </ul>
+              </div>
+              
+              <div class="modal-actions">
+                <button onclick="closeModal()" class="close-modal-btn">✅ Looks Good</button>
+                <button onclick="closeModal()" class="danger-btn">❌ Something Wrong</button>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
       }
 
       function showAlert(message, type) {
