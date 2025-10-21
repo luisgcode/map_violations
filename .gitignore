@@ -5,6 +5,9 @@
 # Carpeta con emails generados (contiene info de clientes)
 output/
 
+# Carpeta de uploads (archivos temporales subidos)
+uploads/
+
 # Archivos temporales de análisis
 explore_*.py
 analyze_*.py
