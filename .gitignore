@@ -42,5 +42,9 @@ ENV/
 .DS_Store
 Thumbs.db
 
-# Plan del proyecto (puede contener info sensible)
+# Plan del proyecto y documentación interna (puede contener info sensible)
 projectplan.md
+PROJECT_INFO.md
+
+# Base de datos de tracking (contiene historial de violaciones)
+violations_tracker.db

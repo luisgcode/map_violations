@@ -1,0 +1,35 @@
+/* ========================================
+   Layout Utilities
+   Flexbox, Grid, and positioning utilities
+   ======================================== */
+
+/* === CONTAINER === */
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+ 
+}
+
+.container-fluid {
+  width: 100%;
+ 
+}
+
+/* === DISPLAY === */
+.flex { display: flex; }
+.grid { display: grid; }
+
+
+
+
+
+
+
+/* === SPACING === */
+.mb-4 { margin-bottom: 16px; }
+
+
+
+
+

@@ -1,0 +1,42 @@
+# SELLER CONTACTS DIRECTORY
+# Format: SellerName | email | phone | website
+# Use 'N/A' for missing data
+#
+
+360 Grills | sales@360grills.com | 800-309-2144 | N/A
+ADDCO ELECTRIC FIREPLACES & FURNITURE | customerservice@electricfireplaces.com | 540-305-7340 | N/A
+All Pro Fireplace | allprofireplace@gmail.com | N/A | N/A
+Ambient Homes | support@ambienthomeus.com | 704684-5721 | N/A
+AMS Fireplace INC | info@amsfireplace.com / sales@amsfireplace.com | 319-777-6045 | N/A
+AQUA TERRA BACKYARD | customerService@AquaTerraBackyard.com | 832-463-1557 | N/A
+BBQ AUTHORITY INC / BLAZZING FIRE | Customerservice@blazzingfire.com | 877-474-5669 | LINK
+BBQ Island Inc | mwest@bbqisland.com | 951-977-8222 | N/A
+Best of Backyard | orders@bestofbackyard.com | 885-906-0626 | N/A
+DEALSUPPLY | amazondealsupply@gmail.com | 000-000-0000 | N/A
+Electric Fireplaces | info@electric-fireplaces.com | 800-634-0410 | N/A
+Electric Fireplaces Depot | info@electricfireplacesdepot.com / support@electricfireplacesdepot.com | 561-739-2491 | N/A
+ELECTRIC FIREPLACES DIRECT OUTLET | jake.woolley@hearthbrands.com | 612-600-6393 | N/A
+Express Deals 2 | N/A | 1 816-200-7477 | N/A
+Fire Habitat | hello@firehabitat.com | N/A | N/A
+Fireluxe Home | sales@fireluxehome.com | N/A | N/A
+FIRST RESPONSE FIREPLACE PRODUCTS | william@firstresponsefireplaces.com | N/A | N/A
+Hearts Brand | jake.woolley@hearthbrands.com | 1-888-552-0229 | N/A
+Home decorey | order@homedecorey.com | 708-809-8687 | N/A
+Kitchen & Bath Authority (KB+A) | sales@kbauthority.com | 514-678-0243 | N/A
+LSG Fireplaces | N/A | 917-540-6070 | N/A
+Modern livingspaces | info@modlivingspaces.com | 503-488-9735 | N/A
+Portable Fireplaces | info@portablefireplace.com | 845-342-8782 | N/A
+Premium Outdoor Grills | mmorse@premiumoutdoorgrills.com / aanchal.wing3103@getwingapp.net | 256-765-2171 | N/A
+Prime Fair | support@primefair.com | 631-899-2528 | N/A
+Smokey Mountain | madi@smokeymountainfireplaces.com | 866-238-9228 | N/A
+Square Deal Shop | marshallrmckinnon@gmail.com | N/A | N/A
+TOTL Holdings | N/A | N/A | N/A
+Trade Evolution (Zentra LLC) | Jpinner@zentrallc.com | N/A | N/A
+Urban Supply | urbansupply.info@gmail.com | N/A | N/A
+WE SELL FIREPITS | info@wesellfirepits.com | N/A | N/A
+BRANDSTER INC | Sales@Brandster.com / Support@Brandster.com | N/A | N/A
+MYBBQDEALS | Info@bestofbackyard.com | N/A | https://bestofbackyard.com/
+HOMELECTRICAL | jlawson@homelectrical.com / FLast@homelectrical.com | N/A | N/A
+CAREFREEKIDZ | ashley@carefreekidz.com | N/A | N/A
+Electric Fireplaces Plus | support@electricfireplacesplus.com | (800) 974-4876 | N/A
+Jacks Small Engines | localstore@jackssmallengines.com / orders@jackssmallengines.com | 1-877-737-2787 | N/A

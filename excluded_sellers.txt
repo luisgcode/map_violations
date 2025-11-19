@@ -1,0 +1,27 @@
+# EXCLUDED SELLERS CONFIGURATION
+# 
+# This file contains the list of sellers that should be excluded from email processing.
+# These sellers will be filtered out but their violations will still be counted in statistics.
+#
+# INSTRUCTIONS FOR UPDATING:
+# 1. Add seller names in lowercase (system automatically normalizes everything)
+# 2. One seller name per line 
+# 3. No need to worry about case - "Amazon", "AMAZON", "amazon" all match "amazon.com"
+# 4. Save this file and restart the Flask application
+#
+# CURRENT EXCLUDED SELLERS (all lowercase for consistency):
+amazon.com
+lsg fireplaces
+
+# TO ADD MORE SELLERS, uncomment and modify the examples below:
+# eBay
+# Walmart.com
+# Wayfair
+# Overstock.com
+# Newegg.com
+
+# NOTES:
+# - Sellers are matched case-insensitively
+# - Leading/trailing spaces are automatically removed
+# - Empty lines and lines starting with # are ignored
+# - Make sure to spell seller names exactly as they appear in your Excel files

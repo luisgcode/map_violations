@@ -34,7 +34,13 @@
       "Bash(git commit -m \"fix: use stable dependency versions for deployment\")",
       "Bash(git add nixpacks.toml)",
       "Bash(git commit -m \"fix: add system dependencies and gunicorn config for Railway\")",
-      "Bash(git commit -m \"fix: force Python 3.11 in Railway\")"
+      "Bash(git commit -m \"fix: force Python 3.11 in Railway\")",
+      "Bash(python convert_directory.py:*)",
+      "Bash(pip install:*)",
+      "Bash(python test_contacts.py:*)",
+      "Bash(python:*)",
+      "Bash(del test_days_calculation.py test_day3.py restore_db.py)",
+      "Bash(powershell -Command:*)"
     ],
     "deny": []
   }
